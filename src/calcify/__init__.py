@@ -1,4 +1,5 @@
-def main() -> None:
-    import uvicorn
+import uvicorn
 
-    uvicorn.run("calcify.app:app", host="0.0.0.0", port=8000)
+
+def main() -> None:
+    uvicorn.run('calcify.app:app', host='0.0.0.0', port=8000)

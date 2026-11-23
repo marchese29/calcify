@@ -18,3 +18,40 @@ calcify = "calcify:main"
 [build-system]
 requires = ["uv_build>=0.13.9,<0.14.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "basedpyright>=1.40.2",
+    "ruff>=0.17.6",
+]
+
+[tool.basedpyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.15"
+include = ["src"]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E4", "E7", "E9", "F",  # ruff defaults (E402: imports at top of module)
+    "E501",                 # line too long (catches strings/comments the formatter can't wrap)
+    "ANN",                  # require type annotations
+    "PLC0415",              # import-outside-top-level: no inline imports
+    "Q",                    # quote style (configured below, matches the formatter)
+]
+ignore = [
+    "ANN401",  # allow explicit `Any`
+]
+
+[tool.ruff.lint.flake8-annotations]
+suppress-none-returning = true  # functions that only return None need no `-> None`
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"  # double quotes still allowed when they avoid escaping a '
+
+[tool.ruff.format]
+quote-style = "single"  # formatter falls back to double quotes when that avoids escapes
